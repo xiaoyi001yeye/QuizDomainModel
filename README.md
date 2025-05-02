@@ -73,71 +73,48 @@ src/main/java/
 
 ## 使用示例
 ```java
-// 单选题示例
-Question singleChoice = new Question("Java接口的关键字？");
-singleChoice.setPoints(5);
-singleChoice.setType(QuestionType.SINGLE_CHOICE);
-singleChoice.addChoice(new Choice("interface", true));
-singleChoice.addChoice(new Choice("class", false));
-UserAnswer userAnswer1 = new UserAnswer();
-userAnswer1.selectChoice(singleChoice, singleChoice.getChoices().get(0));
-// 得分：5
-
-// 多选题示例
-Question multipleChoice = new Question("以下哪些是Java集合框架？");
-multipleChoice.setPoints(10);
-multipleChoice.setType(QuestionType.MULTIPLE_CHOICE);
-multipleChoice.addChoice(new Choice("ArrayList", true));
-multipleChoice.addChoice(new Choice("HashMap", true));
-multipleChoice.addChoice(new Choice("String", false));
-UserAnswer userAnswer2 = new UserAnswer();
-userAnswer2.selectChoice(multipleChoice, multipleChoice.getChoices().get(0));
-userAnswer2.selectChoice(multipleChoice, multipleChoice.getChoices().get(1));
-// 得分：10
-
-// 判断题示例
-Question trueFalse = new Question("Java中String是不可变对象");
-trueFalse.setPoints(3);
-trueFalse.setType(QuestionType.TRUE_FALSE);
-trueFalse.addChoice(new Choice("正确", true));
-trueFalse.addChoice(new Choice("错误", false));
-UserAnswer userAnswer3 = new UserAnswer();
-userAnswer3.selectChoice(trueFalse, trueFalse.getChoices().get(0));
-// 得分：3
-
-// 填空题示例
-Question fillInBlank = new Question("Java的跨平台特性通过______实现");
-fillInBlank.setPoints(7);
-fillInBlank.setType(QuestionType.FILL_IN_BLANK);
-fillInBlank.addChoice(new Choice("JVM", true));
-UserAnswer userAnswer4 = new UserAnswer();
-userAnswer4.setTextAnswer(fillInBlank, "JVM");
-// 得分：7
-
-// 阅读理解题示例
-MaterialQuestion reading = new MaterialQuestion();
-reading.setMaterialText("Java是一种广泛使用的编程语言...");
-reading.setQuestionText("根据材料，Java的主要优势是什么？");
-reading.setPoints(15);
-reading.setType(QuestionType.READING);
-reading.setWordLimit(50);
-UserAnswer userAnswer5 = new UserAnswer();
-userAnswer5.setTextAnswer(reading, "跨平台特性和面向对象设计");
+// 阅读理解题示例1 - Python
+MaterialQuestion reading1 = new MaterialQuestion();
+reading1.setMaterialText("Python是一种动态类型的解释型语言，以简洁易读的语法著称...");
+reading1.setQuestionText("根据材料，Python的主要优势体现在哪些方面？");
+reading1.setPoints(15);
+reading1.setType(QuestionType.READING);
+reading1.setWordLimit(50);
+UserAnswer userAnswer6 = new UserAnswer();
+userAnswer6.setTextAnswer(reading1, "简洁的语法结构和丰富的标准库支持");
 // 得分：15
 
-// 计算总分
+// 阅读理解题示例2 - C++
+MaterialQuestion reading2 = new MaterialQuestion();
+reading2.setMaterialText("C++是一种静态类型的编译型语言，支持面向对象和泛型编程...");
+reading2.setQuestionText("材料中提到的C++语言核心特性是什么？");
+reading2.setPoints(15);
+reading2.setType(QuestionType.READING);
+reading2.setWordLimit(50);
+UserAnswer userAnswer7 = new UserAnswer();
+userAnswer7.setTextAnswer(reading2, "高性能执行能力和底层内存控制");
+// 得分：15
+
+// 阅读理解题示例3 - JavaScript
+MaterialQuestion reading3 = new MaterialQuestion();
+reading3.setMaterialText("JavaScript最初作为网页脚本语言设计，现已成为全栈开发的重要工具...");
+reading3.setQuestionText("根据材料，JavaScript为何能成为全栈开发语言？");
+reading3.setPoints(15);
+reading3.setType(QuestionType.READING);
+reading3.setWordLimit(50);
+UserAnswer userAnswer8 = new UserAnswer();
+userAnswer8.setTextAnswer(reading3, "跨平台执行能力和异步处理机制");
+// 得分：15
+
+// 总分计算示例
 Quiz quiz = new Quiz();
-quiz.addQuestion(singleChoice);
-quiz.addQuestion(multipleChoice);
-quiz.addQuestion(trueFalse);
-quiz.addQuestion(fillInBlank);
-quiz.addQuestion(reading);
-int score = new AnswerSheet().calculateScore(quiz, userAnswer1);
-score += new AnswerSheet().calculateScore(quiz, userAnswer2);
-score += new AnswerSheet().calculateScore(quiz, userAnswer3);
-score += new AnswerSheet().calculateScore(quiz, userAnswer4);
-score += new AnswerSheet().calculateScore(quiz, userAnswer5);
-System.out.println("总得分：" + score); // 输出: 40
+quiz.addQuestion(reading1);
+quiz.addQuestion(reading2);
+quiz.addQuestion(reading3);
+int totalScore = new AnswerSheet().calculateScore(quiz, userAnswer6);
+totalScore += new AnswerSheet().calculateScore(quiz, userAnswer7);
+totalScore += new AnswerSheet().calculateScore(quiz, userAnswer8);
+System.out.println("阅读理解题总得分：" + totalScore); // 输出: 45
 ```
 
 ## 构建与测试
