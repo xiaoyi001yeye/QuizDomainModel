@@ -7,12 +7,13 @@
 ```
 src/main/java/
 └── com/example/quizdomainmodel/domain/model/
-    ├── Question.java       # 问题实体（包含题目内容和选项）
-    ├── Choice.java         # 选项实体（标记正确答案）
-    ├── Quiz.java           # 测验聚合根（管理问题集合）
-    ├── UserAnswer.java     # 用户答案记录
-    └── AnswerSheet.java    # 自动评分逻辑
-    └── QuestionType.java   # 题目类型枚举（单选/多选/判断/填空/阅读理解）
+    ├── Question.java         # 问题实体（包含题目内容和选项）
+    ├── Choice.java           # 选项实体（标记正确答案）
+    ├── Quiz.java             # 测验聚合根（管理问题集合）
+    ├── UserAnswer.java       # 用户答案记录
+    ├── AnswerSheet.java      # 自动评分逻辑
+    ├── QuestionType.java     # 题目类型枚举（单选/多选/判断/填空/阅读理解）
+    └── MaterialQuestion.java # 阅读理解题实体（继承Question）
 ```
 
 ## 核心类说明
@@ -34,6 +35,15 @@ src/main/java/
   private List<Choice> choices;   // 选项列表
   private int points;             // 题目分值
   private QuestionType type;      // 题目类型（新增字段）
+  ```
+
+### MaterialQuestion.java
+- 阅读理解题实体类
+- 继承自Question
+- 新增字段：
+  ```java
+  private String materialText;    // 阅读材料内容
+  private int wordLimit;          // 作答字数限制
   ```
 
 ### Choice.java
