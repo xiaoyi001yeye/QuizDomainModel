@@ -1,6 +1,12 @@
-/target/
+**/target/
+domain/target/
 *.iml
 /.idea/
 /.vscode/
 *.log
 *.env
+*.class
+*.jar
+*.war
+
+
