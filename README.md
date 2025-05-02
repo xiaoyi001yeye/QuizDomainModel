@@ -73,22 +73,71 @@ src/main/java/
 
 ## 使用示例
 ```java
-// 创建问题
-Question question = new Question("Java接口的关键字？");
-question.setPoints(5);
-question.setType(QuestionType.SINGLE_CHOICE); // 设置题目类型
-question.addChoice(new Choice("interface", true));
-question.addChoice(new Choice("class", false));
+// 单选题示例
+Question singleChoice = new Question("Java接口的关键字？");
+singleChoice.setPoints(5);
+singleChoice.setType(QuestionType.SINGLE_CHOICE);
+singleChoice.addChoice(new Choice("interface", true));
+singleChoice.addChoice(new Choice("class", false));
+UserAnswer userAnswer1 = new UserAnswer();
+userAnswer1.selectChoice(singleChoice, singleChoice.getChoices().get(0));
+// 得分：5
 
-// 用户选择答案
-UserAnswer userAnswer = new UserAnswer();
-userAnswer.selectChoice(question, question.getChoices().get(0));
+// 多选题示例
+Question multipleChoice = new Question("以下哪些是Java集合框架？");
+multipleChoice.setPoints(10);
+multipleChoice.setType(QuestionType.MULTIPLE_CHOICE);
+multipleChoice.addChoice(new Choice("ArrayList", true));
+multipleChoice.addChoice(new Choice("HashMap", true));
+multipleChoice.addChoice(new Choice("String", false));
+UserAnswer userAnswer2 = new UserAnswer();
+userAnswer2.selectChoice(multipleChoice, multipleChoice.getChoices().get(0));
+userAnswer2.selectChoice(multipleChoice, multipleChoice.getChoices().get(1));
+// 得分：10
 
-// 计算得分
+// 判断题示例
+Question trueFalse = new Question("Java中String是不可变对象");
+trueFalse.setPoints(3);
+trueFalse.setType(QuestionType.TRUE_FALSE);
+trueFalse.addChoice(new Choice("正确", true));
+trueFalse.addChoice(new Choice("错误", false));
+UserAnswer userAnswer3 = new UserAnswer();
+userAnswer3.selectChoice(trueFalse, trueFalse.getChoices().get(0));
+// 得分：3
+
+// 填空题示例
+Question fillInBlank = new Question("Java的跨平台特性通过______实现");
+fillInBlank.setPoints(7);
+fillInBlank.setType(QuestionType.FILL_IN_BLANK);
+fillInBlank.addChoice(new Choice("JVM", true));
+UserAnswer userAnswer4 = new UserAnswer();
+userAnswer4.setTextAnswer(fillInBlank, "JVM");
+// 得分：7
+
+// 阅读理解题示例
+MaterialQuestion reading = new MaterialQuestion();
+reading.setMaterialText("Java是一种广泛使用的编程语言...");
+reading.setQuestionText("根据材料，Java的主要优势是什么？");
+reading.setPoints(15);
+reading.setType(QuestionType.READING);
+reading.setWordLimit(50);
+UserAnswer userAnswer5 = new UserAnswer();
+userAnswer5.setTextAnswer(reading, "跨平台特性和面向对象设计");
+// 得分：15
+
+// 计算总分
 Quiz quiz = new Quiz();
-quiz.addQuestion(question);
-int score = new AnswerSheet().calculateScore(quiz, userAnswer);
-System.out.println("得分：" + score); // 输出: 5
+quiz.addQuestion(singleChoice);
+quiz.addQuestion(multipleChoice);
+quiz.addQuestion(trueFalse);
+quiz.addQuestion(fillInBlank);
+quiz.addQuestion(reading);
+int score = new AnswerSheet().calculateScore(quiz, userAnswer1);
+score += new AnswerSheet().calculateScore(quiz, userAnswer2);
+score += new AnswerSheet().calculateScore(quiz, userAnswer3);
+score += new AnswerSheet().calculateScore(quiz, userAnswer4);
+score += new AnswerSheet().calculateScore(quiz, userAnswer5);
+System.out.println("总得分：" + score); // 输出: 40
 ```
 
 ## 构建与测试
