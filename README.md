@@ -31,10 +31,10 @@ src/main/java/
 - 管理题目内容、选项和分值
 - 关键字段：
   ```java
-  private String questionText;    // 题目内容
-  private List<Choice> choices;   // 选项列表
-  private int points;             // 题目分值
-  private QuestionType type;      // 题目类型（新增字段）
+  private String stem;          // 题目内容
+  private List<Choice> choices; // 选项列表
+  private int points;           // 题目分值
+  private QuestionType type;    // 题目类型
   ```
 
 ### MaterialQuestion.java
@@ -42,65 +42,65 @@ src/main/java/
 - 继承自Question
 - 新增字段：
   ```java
-  private String materialText;    // 阅读材料内容
-  private int wordLimit;          // 作答字数限制
+  private int wordLimit;        // 作答字数限制
   ```
 
 ### Choice.java
 - 定义题目选项及正确性标记
 - 核心属性：
   ```java
-  private String choiceText;     // 选项内容
-  private boolean isCorrect;     // 正确性标记
+  private String choiceText;    // 选项内容
+  private boolean isCorrect;    // 正确性标记
   ```
-
-### 评分流程
-1. 用户通过UserAnswer提交答案
-2. AnswerSheet验证答案并计算分数：
-   ```java
-   public class AnswerSheet {
-       public int calculateScore(Quiz quiz, UserAnswer userAnswer) {
-           int total = 0;
-           for (Question question : quiz.getQuestions()) {
-               if (userAnswer.getSelectedChoice(question).isCorrect()) {
-                   total += question.getPoints();
-               }
-           }
-           return total;
-       }
-   }
-   ```
 
 ## 使用示例
 ```java
 // 阅读理解题示例1 - Python
-MaterialQuestion reading1 = new MaterialQuestion();
-reading1.setMaterialText("Python是一种动态类型的解释型语言，以简洁易读的语法著称...");
-reading1.setQuestionText("根据材料，Python的主要优势体现在哪些方面？");
-reading1.setPoints(15);
-reading1.setType(QuestionType.READING);
+MaterialQuestion reading1 = new MaterialQuestion(
+    "Python是一种动态类型的解释型语言，以简洁易读的语法著称...",
+    new ArrayList<>(), 
+    "简洁的语法结构", 
+    15, 
+    List.of(
+        new Question("Python的缩进规则主要用于？", QuestionType.SINGLE_CHOICE, 
+            List.of(new Choice("代码块结构", true), new Choice("变量声明", false)), 
+            "代码块结构", 5)
+    )
+);
 reading1.setWordLimit(50);
 UserAnswer userAnswer6 = new UserAnswer();
 userAnswer6.setTextAnswer(reading1, "简洁的语法结构和丰富的标准库支持");
 // 得分：15
 
 // 阅读理解题示例2 - C++
-MaterialQuestion reading2 = new MaterialQuestion();
-reading2.setMaterialText("C++是一种静态类型的编译型语言，支持面向对象和泛型编程...");
-reading2.setQuestionText("材料中提到的C++语言核心特性是什么？");
-reading2.setPoints(15);
-reading2.setType(QuestionType.READING);
+MaterialQuestion reading2 = new MaterialQuestion(
+    "C++是一种静态类型的编译型语言，支持面向对象和泛型编程...",
+    new ArrayList<>(), 
+    "高性能执行", 
+    15, 
+    List.of(
+        new Question("C++内存管理的主要优势是？", QuestionType.SINGLE_CHOICE, 
+            List.of(new Choice("手动控制", true), new Choice("自动回收", false)), 
+            "手动控制", 5)
+    )
+);
 reading2.setWordLimit(50);
 UserAnswer userAnswer7 = new UserAnswer();
 userAnswer7.setTextAnswer(reading2, "高性能执行能力和底层内存控制");
 // 得分：15
 
 // 阅读理解题示例3 - JavaScript
-MaterialQuestion reading3 = new MaterialQuestion();
-reading3.setMaterialText("JavaScript最初作为网页脚本语言设计，现已成为全栈开发的重要工具...");
-reading3.setQuestionText("根据材料，JavaScript为何能成为全栈开发语言？");
-reading3.setPoints(15);
-reading3.setType(QuestionType.READING);
+MaterialQuestion reading3 = new MaterialQuestion(
+    "JavaScript最初作为网页脚本语言设计，现已成为全栈开发的重要工具...",
+    new ArrayList<>(), 
+    "跨平台执行", 
+    15, 
+    List.of(
+        new Question("Node.js的主要贡献是？", QuestionType.SINGLE_CHOICE, 
+            List.of(new Choice("服务器端执行", true), new Choice("DOM操作", false)), 
+            "服务器端执行", 5)
+    )
+);
 reading3.setWordLimit(50);
 UserAnswer userAnswer8 = new UserAnswer();
 userAnswer8.setTextAnswer(reading3, "跨平台执行能力和异步处理机制");

@@ -17,7 +17,6 @@ public class Question {
     private String stem; // The actual text/content of the question
     private QuestionType type;
     private List<Choice> choices; // List of possible choices (relevant for SINGLE_CHOICE, MULTIPLE_CHOICE, TRUE_FALSE)
-    private List<Question> subQuestions; // List of sub-questions for READING type
     private Object correctAnswer; // Representation of the correct answer(s). Type depends on QuestionType.
     private int points; // 题目分值
 

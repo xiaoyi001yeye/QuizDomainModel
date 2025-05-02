@@ -1,0 +1,7 @@
+com/example/quizdomainmodel/domain/model/Question.class
+com/example/quizdomainmodel/domain/model/UserAnswer.class
+com/example/quizdomainmodel/domain/model/AnswerSheet.class
+com/example/quizdomainmodel/domain/model/MaterialQuestion.class
+com/example/quizdomainmodel/domain/model/Choice.class
+com/example/quizdomainmodel/domain/model/Quiz.class
+com/example/quizdomainmodel/domain/model/QuestionType.class

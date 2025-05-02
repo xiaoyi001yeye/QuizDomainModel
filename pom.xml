@@ -7,10 +7,14 @@
     <groupId>com.example</groupId>
     <artifactId>QuizDomainModel</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <packaging>jar</packaging>
+    <packaging>pom</packaging>
 
     <name>QuizDomainModel</name>
     <description>Domain model for a Quiz application</description>
+
+    <modules>
+        <module>domain</module>
+    </modules>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

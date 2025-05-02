@@ -1,45 +1,24 @@
 package com.example.quizdomainmodel.domain.model;
 
+import lombok.Getter;
+import lombok.AllArgsConstructor;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+@Getter
+@AllArgsConstructor
 public class AnswerSheet {
 
-    private String id;
-    private String quizId;
-    private String userId;
-    private long submissionTime;
-    private List<UserAnswer> userAnswers;
+    private final String id;
+    private final String quizId;
+    private final String userId;
+    private final long submissionTime;
+    private final List<UserAnswer> userAnswers;
 
-    public AnswerSheet(String id, String quizId, String userId, long submissionTime, List<UserAnswer> userAnswers) {
-        this.id = id;
-        this.quizId = quizId;
-        this.userId = userId;
-        this.submissionTime = submissionTime;
-        this.userAnswers = new ArrayList<>(userAnswers != null ? userAnswers : Collections.emptyList());
-    }
+    
 
-    // Getters
-    public String getId() {
-        return id;
-    }
-
-    public String getQuizId() {
-        return quizId;
-    }
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public long getSubmissionTime() {
-        return submissionTime;
-    }
-
-    public List<UserAnswer> getUserAnswers() {
-        return Collections.unmodifiableList(userAnswers);
-    }
+   
 
     /**
      * Calculates total score for the answer sheet.
