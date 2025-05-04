@@ -1,24 +1,33 @@
 package com.example.quizdomainmodel.domain.model;
 
-import lombok.Getter;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
-import java.util.ArrayList;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.ToString;
+
 import java.util.Collections;
 import java.util.List;
 
-@Getter
-@AllArgsConstructor
+@Getter // Keep getter for id, quizId, userId, submissionTime
+@AllArgsConstructor // Keep constructor initializing all final fields
+@ToString // Add toString generation
+@EqualsAndHashCode // Add equals/hashCode generation
 public class AnswerSheet {
 
     private final String id;
     private final String quizId;
     private final String userId;
     private final long submissionTime;
-    private final List<UserAnswer> userAnswers;
+    // Customize getter for immutability
+    @Getter(AccessLevel.NONE) private final List<UserAnswer> userAnswers;
 
-    
-
-   
+    /**
+     * Custom getter for userAnswers to return an unmodifiable list.
+     */
+    public List<UserAnswer> getUserAnswers() {
+        return Collections.unmodifiableList(this.userAnswers != null ? this.userAnswers : Collections.emptyList());
+    }
 
     /**
      * Calculates total score for the answer sheet.
@@ -27,14 +36,14 @@ public class AnswerSheet {
     public int calculateTotalScore(List<Question> quizQuestions) {
         int totalScore = 0;
         
-        for (UserAnswer userAnswer : userAnswers) {
+        for (UserAnswer userAnswer : getUserAnswers()) {
             for (Question question : quizQuestions) {
                 if (question.getId().equals(userAnswer.getQuestionId())) {
                     // Handle material questions
                     if (question instanceof MaterialQuestion) {
                         MaterialQuestion materialQuestion = (MaterialQuestion) question;
-                        // Add material question overall score
-                        totalScore += materialQuestion.getTotalScore();
+                        // Add material question overall score - FIX: Use calculateTotalScore()
+                        totalScore += materialQuestion.calculateTotalScore();
                         
                         // Add individual sub-question scores
                         for (Question subQuestion : materialQuestion.getSubQuestions()) {

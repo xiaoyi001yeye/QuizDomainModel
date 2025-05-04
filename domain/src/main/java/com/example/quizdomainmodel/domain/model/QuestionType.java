@@ -24,6 +24,7 @@ public enum QuestionType {
      */
     FILL_IN_BLANK,
 
+    MATERIAL,
     /**
      * Reading comprehension question with sub-questions
      */

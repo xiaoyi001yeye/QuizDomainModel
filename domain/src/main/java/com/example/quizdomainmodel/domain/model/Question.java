@@ -1,29 +1,29 @@
 package com.example.quizdomainmodel.domain.model;
 
+import lombok.AccessLevel;
 import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 import java.util.UUID;
 
 /**
  * Represents a single question within a quiz.
  */
 @Data
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Question {
 
     private String id;
-    private String stem; // The actual text/content of the question
+    private String stem; 
     private QuestionType type;
-    private List<Choice> choices; // List of possible choices (relevant for SINGLE_CHOICE, MULTIPLE_CHOICE, TRUE_FALSE)
-    private Object correctAnswer; // Representation of the correct answer(s). Type depends on QuestionType.
-    private int points; // 题目分值
-
-    /**
-     * Protected constructor for frameworks and subclasses.
-     */
-    protected Question() {}
+    @Getter(AccessLevel.NONE) @Setter(AccessLevel.NONE) private List<Choice> choices;
+    private Object correctAnswer; 
+    @Setter(AccessLevel.NONE) private int points; 
 
     /**
      * Creates a new Question with auto-generated ID.
@@ -59,17 +59,13 @@ public class Question {
             throw new IllegalArgumentException("Question type cannot be null.");
         }
         if (choices == null) {
-            // Allow empty list for certain types, but not null
             throw new IllegalArgumentException("Choices list cannot be null.");
         }
         if (correctAnswer == null) {
             throw new IllegalArgumentException("Correct answer cannot be null.");
         }
-        if (points < 0) {
-            throw new IllegalArgumentException("Points cannot be negative.");
-        }
+        setPoints(points);
 
-        // Basic validation based on type (can be expanded)
         if ((type == QuestionType.SINGLE_CHOICE || type == QuestionType.MULTIPLE_CHOICE || type == QuestionType.TRUE_FALSE) && choices.isEmpty()) {
              throw new IllegalArgumentException("Choice-based questions must have at least one choice.");
         }
@@ -77,16 +73,21 @@ public class Question {
         this.id = id;
         this.stem = stem;
         this.type = type;
-        // Create a defensive copy of the choices list
         this.choices = new ArrayList<>(choices);
-        this.correctAnswer = correctAnswer; // Store the provided answer object
-        this.points = points;
+        this.correctAnswer = correctAnswer; 
     }
 
-    /**
-     * Sets the points value for this question.
-     * @param points The new points value. Must be >= 0.
-     */
+    public List<Choice> getChoices() {
+        return Collections.unmodifiableList(this.choices);
+    }
+
+    public void setChoices(List<Choice> choices) {
+        if (choices == null) {
+            throw new IllegalArgumentException("Choices list cannot be null.");
+        }
+        this.choices = new ArrayList<>(choices);
+    }
+
     public void setPoints(int points) {
         if (points < 0) {
             throw new IllegalArgumentException("Points cannot be negative.");

@@ -1,0 +1,6 @@
+id,stem,type,choices,correct_answer,points
+q1,"What is 1+1?",SINGLE_CHOICE,"1;2;3;4",2,10
+q2,"Which are primary colors?",MULTIPLE_CHOICE,"Red;Blue;Green;Yellow","Red;Blue;Yellow",15
+q3,"The capital of France is Paris.",TRUE_FALSE,"True;False",True,5
+q4,"Fill in the blank: Java is __ fun.",FILL_IN_BLANK,,very,10
+q5,"Explain the meaning of life.",ESSAY,,*N/A*,20
